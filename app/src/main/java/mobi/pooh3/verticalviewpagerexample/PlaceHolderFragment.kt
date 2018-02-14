@@ -11,19 +11,14 @@ import android.view.ViewGroup
 
 class PlaceHolderFragment : Fragment() {
 
-    private var mListener: OnFragmentInteractionListener? = null
+    var mListener: PlaceHolderFragment.OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_place_holder, container, false)
-    }
-
-    fun onButtonPressed(uri: Uri) {
-        mListener?.onFragmentInteraction(uri)
-    }
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater?.inflate(R.layout.fragment_place_holder, container, false)
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -39,11 +34,15 @@ class PlaceHolderFragment : Fragment() {
         mListener = null
     }
 
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
-    }
-
     companion object {
         fun newInstance(): PlaceHolderFragment = PlaceHolderFragment()
     }
+
+    interface OnFragmentInteractionListener {
+        fun onFragmentInteraction(uri: Uri)
+    }
+}
+
+fun PlaceHolderFragment.onButtonPressed(uri: Uri) {
+    this.mListener?.onFragmentInteraction(uri)
 }
